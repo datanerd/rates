@@ -3,11 +3,25 @@ import csv
 import io
 from datetime import datetime
 
+
+def find_and_remove_empty_rows(file_name):
+    with open(file_name, 'r') as rates_file:
+        lines = rates_file.readlines()
+    while lines[-1].strip() == "":
+        lines.pop()
+    with open(file_name, 'w') as rates_file:
+        rates_file.writelines(lines)
+    return len(lines)
+
+
+
 # URL of the CSV file
 url = 'https://www.rba.gov.au/statistics/tables/csv/f11.1-data.csv'
 
 # Send a GET request to the URL
 response = requests.get(url)
+
+find_and_remove_empty_rows('rates.csv')
 
 # Check if the request was successful
 if response.status_code == 200:
@@ -44,14 +58,9 @@ if response.status_code == 200:
     #    rates_writer.writerow([])
         rates_writer.writerows(new_rows)
 
-    # find and remove all empty rows at the end of rates.csv
-    with open('rates.csv', 'r') as rates_file:
-        lines = rates_file.readlines()
-    while lines[-1].strip() == "":
-        lines.pop()
-    with open('rates.csv', 'w') as rates_file:
-        rates_file.writelines(lines)
+    find_and_remove_empty_rows('rates.csv')
 
     print(f"Added {len(new_rows)} new rows to rates.csv.")
 else:
     print(f"Failed to download file. Status code: {response.status_code}")
+
