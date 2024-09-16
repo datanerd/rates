@@ -7,6 +7,7 @@ on:
 
 jobs:
   run-scheduled-task:
+    name: Create share price files
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,8 +30,8 @@ jobs:
     - name: Run update_share_price_files.py script
       run: python update_share_price.py ${{ secrets.TWELVE_DATA_API_KEY }} ${{ matrix.stock_symbol }}
 
-jobs:
   git-push:
+    name: Commit and push changes
     needs: run-scheduled-task
     - name: Commit and push changes
       run: |
