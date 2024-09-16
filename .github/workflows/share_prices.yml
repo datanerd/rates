@@ -34,7 +34,7 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git fetch
+        git pull
         git add ${{ matrix.stock_symbol }}.json
         git commit -m "Update share ${{ matrix.stock_symbol }} price file"
         git push
