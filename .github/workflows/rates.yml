@@ -1,3 +1,5 @@
+name: Update FX rates table
+
 on:
   workflow_dispatch: # Manual trigger
   schedule:
