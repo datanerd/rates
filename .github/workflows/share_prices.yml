@@ -27,7 +27,7 @@ jobs:
         pip install requests
 
     - name: Run update_share_price_files.py script
-      run: python update_share_price_files.py ${{ secrets.TWELVE_DATA_API_KEY }} ${{ matrix.stock_symbol }}
+      run: python update_share_price.py ${{ secrets.TWELVE_DATA_API_KEY }} ${{ matrix.stock_symbol }}
 
     - name: Commit and push changes
       run: |
