@@ -17,10 +17,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Delete old file
-      run: |
-        rm -f ${{ matrix.stock_symbol }}.json
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -35,6 +31,7 @@ jobs:
       run: python update_share_price.py ${{ secrets.TWELVE_DATA_API_KEY }} ${{ matrix.stock_symbol }}
 
     - name: Commit and push changes
+      continue-on-error: true
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
