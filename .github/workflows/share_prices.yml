@@ -17,6 +17,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Delete old file
+      run: |
+        rm -f ${{ matrix.stock_symbol }}.json
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
