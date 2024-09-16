@@ -8,8 +8,9 @@ on:
 jobs:
   run-scheduled-task:
     runs-on: ubuntu-latest
-    matrix:
-      stock_symbol: ['MSFT', 'META']
+    strategy:
+      matrix:
+        stock_symbol: ['MSFT', 'META']
 
     steps:
     - name: Checkout repository
